@@ -4,36 +4,54 @@
  */
 package Auth.Dashboard;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.*;
 
 /**
  *
  * @author sam
  */
-public class customerReg extends HttpServlet {
-    
-    
-    
+public class customerRegist extends HttpServlet {
+
+     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet customerReg</title>");            
+            out.println("<title>Servlet customerRegist</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet customerReg at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet customerRegist at " + request.getContextPath() + "</h1>");
+            
+            
+            String name = request.getParameter("name");
+            String gender = request.getParameter("gender");
+            String location = request.getParameter("location");
+            String email = request.getParameter("email");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String role = request.getParameter("role");
+            
+            Connection con = null;
+            try{
+               Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            
+               con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart", "root","");
+            }catch(ClassNotFoundException | SQLException e){
+               out.print("no way");
+            }
+            
+            
             out.println("</body>");
             out.println("</html>");
         }

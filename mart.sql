@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 02, 2022 at 07:26 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1
+-- Generation Time: Aug 05, 2022 at 12:17 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `category` varchar(160) CHARACTER SET utf8 NOT NULL,
+  `category` varchar(160) CHARACTER SET utf8 DEFAULT NULL,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `description` varchar(265) CHARACTER SET utf8 DEFAULT NULL,
   `status` smallint(6) NOT NULL DEFAULT 1,
-  `uri` varchar(100) CHARACTER SET utf8 NOT NULL
+  `uri` varchar(100) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=koi8r;
 
 -- --------------------------------------------------------
@@ -47,10 +47,10 @@ CREATE TABLE `orders` (
   `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` smallint(1) NOT NULL DEFAULT 1,
   `delete` smallint(1) NOT NULL DEFAULT 0,
-  `uri` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `price` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
-  `product` int(11) NOT NULL
+  `uri` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `user` int(11) DEFAULT NULL,
+  `product` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=koi8r;
 
 -- --------------------------------------------------------
@@ -61,10 +61,10 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `preferences` (
   `id` int(11) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` smallint(1) NOT NULL DEFAULT 1,
-  `product` int(11) NOT NULL,
-  `gender` int(11) NOT NULL
+  `date_created` timestamp NULL DEFAULT current_timestamp(),
+  `status` smallint(1) DEFAULT 1,
+  `product` int(11) DEFAULT NULL,
+  `gender` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=koi8r;
 
 -- --------------------------------------------------------
@@ -75,17 +75,17 @@ CREATE TABLE `preferences` (
 
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
-  `products` varchar(160) CHARACTER SET utf8 NOT NULL,
+  `products` varchar(160) CHARACTER SET utf8 DEFAULT NULL,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `status` smallint(6) NOT NULL DEFAULT 1,
-  `delete` smallint(6) NOT NULL DEFAULT 0,
-  `Quantity` int(100) NOT NULL,
-  `Price` int(100) NOT NULL,
-  `description` varchar(265) CHARACTER SET utf8 NOT NULL,
-  `image` longblob NOT NULL,
+  `status` smallint(6) DEFAULT 1,
+  `delete` smallint(6) DEFAULT 0,
+  `Quantity` int(100) DEFAULT NULL,
+  `Price` int(100) DEFAULT NULL,
+  `description` varchar(265) CHARACTER SET utf8 DEFAULT NULL,
+  `image` longblob DEFAULT NULL,
   `uri` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `category` int(11) NOT NULL,
-  `product_term` int(11) NOT NULL
+  `category` int(11) DEFAULT NULL,
+  `product_term` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=koi8r;
 
 -- --------------------------------------------------------
@@ -96,13 +96,13 @@ CREATE TABLE `products` (
 
 CREATE TABLE `product_line` (
   `id` int(11) NOT NULL,
-  `product_term` varchar(60) CHARACTER SET utf8 NOT NULL,
-  `quantity` int(100) NOT NULL,
-  `date_added` date NOT NULL,
+  `product_term` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  `quantity` int(100) DEFAULT NULL,
+  `date_added` date DEFAULT NULL,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` smallint(1) NOT NULL DEFAULT 1,
-  `deleted` smallint(6) NOT NULL DEFAULT 0,
-  `description` varchar(255) CHARACTER SET utf8 NOT NULL
+  `status` smallint(1) DEFAULT 1,
+  `deleted` smallint(6) DEFAULT 0,
+  `description` varchar(255) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=koi8r;
 
 -- --------------------------------------------------------
@@ -113,9 +113,9 @@ CREATE TABLE `product_line` (
 
 CREATE TABLE `reviews` (
   `id` int(11) NOT NULL,
-  `like` smallint(1) NOT NULL DEFAULT 0,
+  `like` smallint(1) DEFAULT 0,
   `user` int(11) DEFAULT NULL,
-  `product` int(11) NOT NULL,
+  `product` int(11) DEFAULT NULL,
   `date_liked` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=koi8r;
 
@@ -127,7 +127,7 @@ CREATE TABLE `reviews` (
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
-  `role` char(50) CHARACTER SET utf8 NOT NULL,
+  `role` char(50) CHARACTER SET utf8 DEFAULT NULL,
   `uri` varchar(233) CHARACTER SET utf8 DEFAULT NULL,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `description` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL,
@@ -142,19 +142,29 @@ CREATE TABLE `roles` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `user` char(100) CHARACTER SET utf8 NOT NULL,
+  `user` char(100) CHARACTER SET utf8 DEFAULT NULL,
   `date_added` timestamp NOT NULL DEFAULT current_timestamp(),
-  `uri` char(64) CHARACTER SET utf8 NOT NULL,
+  `uri` char(64) CHARACTER SET utf8 DEFAULT NULL,
   `status` smallint(6) NOT NULL DEFAULT 1,
   `deleted` smallint(6) NOT NULL DEFAULT 2,
-  `gender` char(10) CHARACTER SET utf8 NOT NULL,
-  `location` char(64) CHARACTER SET utf8 NOT NULL,
-  `email` char(1) CHARACTER SET utf8 NOT NULL,
-  `user_name` char(1) CHARACTER SET utf8 NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `gender` char(10) CHARACTER SET utf8 DEFAULT 'M',
+  `location` char(64) CHARACTER SET utf8 DEFAULT NULL,
+  `email` char(100) CHARACTER SET utf8 DEFAULT NULL,
+  `user_name` char(100) CHARACTER SET utf8 DEFAULT NULL,
+  `password` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
   `product_line` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=koi8r;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `user`, `date_added`, `uri`, `status`, `deleted`, `gender`, `location`, `email`, `user_name`, `password`, `role`, `product_line`) VALUES
+(24, 'opio', '2022-08-05 08:54:40', '/ututu', 1, 2, 'm', 'gfgf', 'k', 's', 'rrr', NULL, NULL),
+(25, 'Eluk', '2022-08-05 09:43:59', NULL, 1, 2, 'M', NULL, NULL, NULL, '1111', NULL, NULL),
+(26, 'Eluk', '2022-08-05 09:49:11', NULL, 1, 2, 'M', 'hshhs', 'hh@w', 'jsjs', '1111', NULL, NULL),
+(27, 'JUJU', '2022-08-05 09:49:39', NULL, 1, 2, 'M', 'JJJ', 's@w', 'hdhdh', 'jjdjd', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -263,7 +273,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
