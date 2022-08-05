@@ -39,9 +39,6 @@
                         <h2>Register Here</h2>
                         
                         <div class="col-md-6 form-group">
-                            <p style="color:red">${requestScope.user}</p>
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label>Full Name</label>
                             <input class="form-control" type="text" placeholder="Eluk Sam" name="name" id="name" required>
                         </div>
@@ -65,17 +62,13 @@
                             <input class="form-control" type="text" placeholder="John" name="username" required>
                         </div>
                         <div class="col-md-6 form-group">
-                            <p style="color:red">${requestScope.error}</p>
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label>Password</label>
                             <input class="form-control" type="password" name="password" id="password" required>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Confirm Password</label>
-                            <input class="form-control" type="password" name="confirm" id="confirm" required>
+                            <input class="form-control" type="hidden" value="customer" name="role" id="role" required>
                         </div>
-                        <input type="submit" class="btn btn-block btn-primary col-md-6 form-group" name="submit" value="Register Details">
+                        <input type="submit" class="btn btn-block btn-primary col-md-6 form-group" name="submit" value="Log in">
                     </form>
                     <p class="link">HAVE AN ACCOUNT?</p><br>
                     <a href="login.jsp">LOGIN HERE</a>

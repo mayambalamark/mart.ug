@@ -37,15 +37,10 @@
             <div class="col-lg-4 col-6 text-right">
                 <div class="d-inline-flex align-items-center">
                     <div class="btn-group">
-                        <button class="btn btn-primary">${requestScope.success}</button>
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Customer Profile</button>
+                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Customer Dashboard</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item">${requestScope.user}</button>
-                            <form method="POST" action="auth_login.jsp" class="dropdown-item">
-                                <input type="hidden" name="auth" value="logout" hidden/>
-                                <a href="auth_login.jsp" onclick="event.preventDefault(); this.closest('form').submit();">
-                                Log out</a>
-                            </form>
+                            <button class="dropdown-item">Samuel</button>
+                            <a href="/mart.ug" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                 </div>
