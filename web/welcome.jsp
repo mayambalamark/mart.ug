@@ -66,6 +66,9 @@
             </div>
             <div class="col-lg-4 col-6 text-right">
                 <div class="d-inline-flex align-items-center">
+                    <div class="hh1 text-uppercase text-dark bg-primary px-2 ml-n1">
+                        <p style="color:dark">${requestScope.error}</p>
+                    </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                         <div class="dropdown-menu dropdown-menu-right">

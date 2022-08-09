@@ -1,3 +1,14 @@
+
+<%
+    String user = null;
+    if(session.getAttribute("user") == null){
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        
+    }else {user = (String)session.getAttribute("user");}
+%>
+
+
+
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-1 px-xl-5">
@@ -8,7 +19,7 @@
                         <i class="fas fa-heart text-dark"></i>
                         <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
-                    <a href="login.jsp" class="btn px-0 ml-2">
+                    <a href="" class="btn px-0 ml-2">
                         <i class="fas fa-shopping-cart text-dark"></i>
                         <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
@@ -36,11 +47,17 @@
             </div>
             <div class="col-lg-4 col-6 text-right">
                 <div class="d-inline-flex align-items-center">
+                    <div class="hh1 text-uppercase text-dark bg-primary px-2 ml-n1">
+                        <p style="color:dark">${requestScope.success}</p>
+                    </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Staff Dashboard</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item">Jonathan</button>
-                            <a href="/mart.ug" class="dropdown-item">Logout</a>
+                            <button class="dropdown-item"><%=user %></button>
+                            <form method="post" action="auth_login.jsp">
+                                <input type="hidden" id="action" name="auth" value="mart_logout" hidden>
+                                <input type="submit" class="dropdown-item" value="logout">
+                            </form>
                         </div>
                     </div>
                 </div>

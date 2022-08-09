@@ -35,15 +35,19 @@
         <div class="content">
             <h1 class="h1 text-primary bg-dark px-2" style="color: yellow; font-size: 46px;">Login to complete your order</h1>
                 <div class="form">
-                    <form method="post" action="/">
+                    <form method="post" action="auth_login.jsp">
                         <h2>Login Here</h2>
+                        <div class="col-md-6 form-group">
+                            <p style="color:red">${requestScope.error}</p>
+                        </div>
+                        <input type="hidden" id="action" name="auth" value="mart_login" hidden>
                         <div class="col-md-6 form-group">
                             <label>User Name</label>
                             <input class="form-control" type="text" placeholder="John" name="username" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Password</label>
-                            <input class="form-control" type="password" name="password" id="password" required>
+                            <input class="form-control" type="password" name="password" id="password">
                         </div>
                         <input type="submit" class="btn btn-block btn-primary col-md-6 form-group" name="submit" value="Log in">
                     </form>

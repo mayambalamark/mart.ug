@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Authenticating</title>
+        <title>Authenticating...</title>
     </head>
     <body>
         <%@page import="java.sql.ResultSet"%>
@@ -16,67 +16,74 @@
         <%
             String auth = request.getParameter("auth");
             switch (auth) {
-                case "login":{
+                case "mart_login" :{
                     String username = request.getParameter("username");
                     String password = request.getParameter("password");
                     
                     if(username != "" && password !=""){
-                 
-                    PreparedStatement st = null;
+                
             
-                    try{
-                        Class.forName("com.mysql.jdbc.Driver");
-                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
-                        
-                        String sql = "SELECT * FROM users WHERE username = ? and password = ?";
-                        st = con.prepareStatement(sql);
-                        
-                        st.setString(1, username);
-                        st.setString(2, password);
-                    
-                        ResultSet rs = st.executeQuery();
-                    
-                        if(rs.next()){
-                            String usr = rs.getString("user_name");
+                        try{
+                            Class.forName("com.mysql.jdbc.Driver");
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
                             
-                            String userRole = "select * from users, roles where users.role = roles.id and users.user_name = '"+usr+"'";
-                            rs = st.executeQuery(userRole);
-                            
-                            while(rs.next()) {
-                                
-                                String roleUri = rs.getSting("uri");
-                                request.setAttribute("success", "Login Successful!");
-                                request.setAttribute("user", us);
-                                request.getRequestDispatcher(roleUri).forward(request, response);
-                                response.sendRedirect(request.getContextPath() + roleUri);//--- /DashboardCustomer.jsp
-                            break;
-                                
-                                
+                            String sql = "SELECT * FROM users WHERE user_name = ? and password = ?";
+                            PreparedStatement prps = con.prepareStatement(sql);
+           
+                            prps.setString(1, username);
+                            prps.setString(2, password);
+           
+                            ResultSet rslt = prps.executeQuery();
                     
-                            }
-                    
-                            
-                        }else {
-                            request.setAttribute("error", "Sorry! Your login details do not much");
-                            request.getRequestDispatcher("login.jsp").forward(request, response);
-                            break;
-                        }
-                    
-                    }catch(ClassNotFoundException | SQLException e) {
-                    e.printStackTrace();
-                    }
-                 
-                    }else {
+                                if(rslt.next()){
+                                    int user_role = rslt.getInt("role");
+                                    String current_user = rslt.getString("user");
+                                    if (user_role == 1) {
+                                        request.setAttribute("success", "Login Successful!");
+                                        session.setAttribute("user", current_user);
+                                        request.getRequestDispatcher("DashboardCustomer.jsp").forward(request, response);
+                                        response.sendRedirect(request.getContextPath() + "/DashboardCustomer.jsp");
+                                        return;
+                                    }else if(user_role == 2){
+                                        request.setAttribute("success", "Login Successful!");
+                                        session.setAttribute("user", current_user);
+                                        request.getRequestDispatcher("DashboardStaff.jsp").forward(request, response);
+                                        response.sendRedirect(request.getContextPath() + "/DashboardStaff.jsp");
+                                        return;
+                                    }else if(user_role == 3){
+                                        request.setAttribute("success", "Login Successful!");
+                                        session.setAttribute("user", current_user);
+                                        request.getRequestDispatcher("DashboardManager.jsp").forward(request, response);
+                                        response.sendRedirect(request.getContextPath() + "/DashboardManager.jsp");
+                                        return;
+                                    }else{
+                                        request.setAttribute("error", "Sorry! You play no part on the platform");
+                                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                                        return;
+                                    }  
+                                }else{
+                                    request.setAttribute("error", "Sorry! Your login details do not much");
+                                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                                    return;
+                                }
+                                }catch(ClassNotFoundException | SQLException e) {
+                                e.printStackTrace();
+                                }
+                    }else{
             
                         request.setAttribute("error", "Login details missing!");
                         request.getRequestDispatcher("login.jsp").forward(request, response);
                         break;
                     }  
                 }
+                    
+                    //logout session
                 
-                case "logout": {
+                case "mart_logout": {
                     session.invalidate();
-                    response.sendRedirect(request.getContextPath() + "/login.jsp");
+                    request.setAttribute("error", "You Logout!");
+                    request.getRequestDispatcher("welcome.jsp").forward(request, response);
+                    response.sendRedirect(request.getContextPath() + "/welcome.jsp");
                     break;     
                 }
             }

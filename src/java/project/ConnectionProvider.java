@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package project;
-import java.sql.ResultSet;
+
 import java.sql.Statement;
-import java.sql.SQLException
+import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
         
@@ -20,7 +20,7 @@ public class ConnectionProvider {
       try
         {
           Class.forName("com.mysql.jdbc.Driver");
-          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","free 123");
+          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
           return con;
         }
       catch(Exception e){

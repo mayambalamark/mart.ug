@@ -1,3 +1,12 @@
+<%
+    String user = null;
+    if(session.getAttribute("user") == null){
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        
+    }else {user = (String)session.getAttribute("user");}
+%>
+
+
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-1 px-xl-5">
@@ -8,7 +17,7 @@
                         <i class="fas fa-heart text-dark"></i>
                         <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
-                    <a href="login.jsp" class="btn px-0 ml-2">
+                    <a href="" class="btn px-0 ml-2">
                         <i class="fas fa-shopping-cart text-dark"></i>
                         <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                     </a>
@@ -36,11 +45,17 @@
             </div>
             <div class="col-lg-4 col-6 text-right">
                 <div class="d-inline-flex align-items-center">
+                    <div class="hh1 text-uppercase text-dark bg-primary px-2 ml-n1">
+                        <p style="color:dark">${requestScope.success}</p>
+                    </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Manager Dashboard</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item">Kenneth</button>
-                            <a href="/mart.ug" class="dropdown-item">Logout</a>
+                            <button class="dropdown-item"><%=user %></button>
+                            <form method="post" action="auth_login.jsp">
+                                <input type="hidden" id="action" name="auth" value="mart_logout" hidden>
+                                <input type="submit" class="dropdown-item" value="logout">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -91,19 +106,23 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="#statistics" class="nav-item nav-link">Stats</a>
-                            <a href="#category" class="nav-item nav-link">Category</a>
-   
                             <a href="#contactus" class="nav-item nav-link">Contact</a>
-                            <a href="productLine.jsp" class="nav-item nav-link">Product Line</a>
-                            <div class="btn-group">
-                               <button type="button" class="ml-5 btn btn-sm btn-white dropdown-toggle bg-primary text-dark " data-toggle="dropdown">Products</button>
-                               <div class="dropdown-menu dropdown-menu-right">
-                        
-                                <a href="#featured_products" class="dropdown-item">VIEW</a>
-                                <a href="addProduct.jsp" class="dropdown-item">ADD</a>
-                               
-                              </div>
+                            <a href="productLine.jsp" class="nav-item nav-link">Product-Line</a>
+                            <div class="nav-item dropdown">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Category <i class="fa fa-angle-down mt-1"></i></a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="add_category.jsp" class="dropdown-item">Add Category</a>
+                                    <a href="#category" class="dropdown-item">View Category</a>
+                                </div>
                             </div>
+                            <div class="nav-item dropdown">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Products <i class="fa fa-angle-down mt-1"></i></a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="add_product.jsp" class="dropdown-item">Add Product</a>
+                                    <a href="#featured_products" class="dropdown-item">View Products</a>
+                                </div>
+                            </div>
+                            <a href="human_resource.jsp" class="nav-item nav-link">Human Resource</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="" class="btn px-0">
