@@ -1,3 +1,4 @@
+
 <%
     String user = null;
     if(session.getAttribute("user") == null){
@@ -5,7 +6,6 @@
         
     }else {user = (String)session.getAttribute("user");}
 %>
-
 
     <!-- Topbar Start -->
     <div class="container-fluid">
