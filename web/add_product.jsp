@@ -24,6 +24,7 @@
                             <th>Image</th>
                             <th>Product</th>
                             <th>Quantity</th>
+                            <th>Quantity Left</th>
                             <th>Date Added</th>
                             <th>Description</th>
                             <th>Price</th>
@@ -49,6 +50,7 @@
                             <td class="align-middle"><%=rs.getString("image") %></td>
                             <td class="align-middle"><%=rs.getString("products") %></td>
                             <td class="align-middle"><%=rs.getString("quantity") %></td>
+                            <td class="align-middle"><%=rs.getString("quantity_left") %></td>
                             <td class="align-middle"><%=rs.getString("date_created") %></td>
                             <td class="align-middle"><%=rs.getString("description") %></td>
                             <td class="align-middle"><%=rs.getString("price") %></td>

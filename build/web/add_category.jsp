@@ -23,6 +23,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Category</th>
+                            <th>Products No</th>
                             <th>Date Added</th>
                             <th>Description</th>
                             <th>status</th>
@@ -35,16 +36,19 @@
                         Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_UPDATABLE);
                         st = conn.createStatement();
-                        String sql = "SELECT * FROM categories";
+                        String sql = "SELECT *, COUNT(categories.id)"
+                                     + " FROM products INNER JOIN categories ON products.category = categories.id"
+                                     + " GROUP BY products.category";
                         ResultSet rs = st.executeQuery(sql);
                         while(rs.next()){
                     %>
                     <tbody class="align-middle">
                         <tr>
-                            <td class="align-middle"><%=rs.getInt("id") %></td>
-                            <td class="align-middle"><%=rs.getString("category") %></td>
-                            <td class="align-middle"><%=rs.getString("date_created") %></td>
-                            <td class="align-middle"><%=rs.getString("description") %></td>
+                            <td class="align-middle"><%=rs.getInt("categories.id") %></td>
+                            <td class="align-middle"><%=rs.getString("categories.category") %></td>
+                            <td class="align-middle"><%=rs.getInt("COUNT(categories.id)") %></td>
+                            <td class="align-middle"><%=rs.getString("categories.date_created") %></td>
+                            <td class="align-middle"><%=rs.getString("categories.description") %></td>
                             <td class="align-middle"><button class="btn btn-sm btn-success">Activate!</button></td>
                         </tr>
                     </tbody>
@@ -64,7 +68,7 @@
 <!-- Add Product_category -->
 <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex" id="add_category">
     <div class="content text-center ml-3" id="add_product">
-        <h1 class="h1 text-primary bg-dark px-2" style="color: yellow; font-size: 46px;">Add product Line</h1>
+        <h1 class="h1 text-primary bg-dark px-2" style="color: yellow; font-size: 46px;">Add Product Category</h1>
         <div class="form">
             <form class="text-center"post" action="customerdb.jsp">
                 <div class="col-md-6 form-group">

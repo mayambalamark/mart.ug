@@ -143,38 +143,38 @@
                         }
                 }
                 
-//                case "register_product" : {
-//                    String product = request.getParameter("product");
-//                    String product_image = request.getParameter("product_image"); 
-//                    String quantity = request.getParameter("quantity");
-//                    String price = request.getParameter("price"); 
-//                    String description = request.getParameter("description"); 
-//                    String product_term = request.getParameter("product_term");
-//                    int category = (int) Integer.parseInt(request.getParameter("category"));
-//                    
-//                    Connection con=null;
-//                    ResultSet rs=null;
-//                    Statement st=null;
-//                    
-//                    
-//                        try{ 
-//                            Class.forName("com.mysql.jdbc.Driver");
-//                            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
-//                    
-//                    
-//                            st = con.createStatement();
-//                            st.executeUpdate("insert into products set products='"+product+"',category='"+category+"',quantity='"+quantity+"',price='"+price+"',"
-//                            + " image='"+product_image+"', description='"+description+"', product_term='"+product_term+"'");
-//                            
-//                                request.setAttribute("error", "Product Successfully Added!");
-//                                request.getRequestDispatcher("/add_product.jsp").forward(request, response);
-//                                response.sendRedirect(request.getContextPath() + "/add_product.jsp");
-//                                return;
-//                    
-//                        }catch(ClassNotFoundException | SQLException c) {
-//                            out.println(c.getMessage());
-//                        }
-//                }
+                case "register_product" : {
+                    String product = request.getParameter("product");
+                    String product_image = request.getParameter("product_image"); 
+                    String quantity = request.getParameter("quantity");
+                    String price = request.getParameter("price"); 
+                    String description = request.getParameter("description"); 
+                    String product_term = request.getParameter("product_term");
+                    int category = (int) Integer.parseInt(request.getParameter("category"));
+                    
+                    Connection con=null;
+                    ResultSet rs=null;
+                    Statement st=null;
+                    
+                    
+                        try{ 
+                            Class.forName("com.mysql.jdbc.Driver");
+                            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
+                    
+                    
+                            st = con.createStatement();
+                            st.executeUpdate("insert into products set products='"+product+"',category='"+category+"',quantity='"+quantity+"',quantity_left='"+quantity+"',price='"+price+"',"
+                            + " image='"+product_image+"', description='"+description+"', product_term='"+product_term+"'");
+                            
+                                request.setAttribute("error", "Product Successfully Added!");
+                                request.getRequestDispatcher("/add_product.jsp").forward(request, response);
+                                response.sendRedirect(request.getContextPath() + "/add_product.jsp");
+                                return;
+                    
+                        }catch(ClassNotFoundException | SQLException c) {
+                            out.println(c.getMessage());
+                        }
+                }
                 
                 case "register_staffs": {
                     String name = request.getParameter("name");
