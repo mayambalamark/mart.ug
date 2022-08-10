@@ -123,6 +123,7 @@
                 
                 case "register_category" : {
                     String category = request.getParameter("category");
+                    String category_image = request.getParameter("category_image");
                     String description = request.getParameter("description"); 
                     
                     Statement st = null;
@@ -131,7 +132,7 @@
                             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
                     
                             st = con.createStatement();
-                            st.executeUpdate("insert into categories set category='"+category+"', description='"+description+"'");
+                            st.executeUpdate("insert into categories set category='"+category+"',cat_image='"+category_image+"', description='"+description+"'");
                             
                             request.setAttribute("success", "Category Successfully Added!");
                             request.getRequestDispatcher("/add_category.jsp").forward(request, response);

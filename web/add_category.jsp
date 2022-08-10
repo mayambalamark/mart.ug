@@ -11,7 +11,6 @@
 <!-- Product_category  -->
 <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Adding Product Categories</button>
     <div class="container-fluid">
-        <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive mb-5">
                 <a href="DashboardManager.jsp" class="btn btn-block btn-primary col-md-6 form-group">DASHBOARD</a>
                 <a href="#add_category" class="h6 text-primary bg-dark px-2" style="color: yellow; font-size: 30px;">ADD</a>
@@ -23,6 +22,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Category</th>
+                            <th>Image</th>
                             <th>Products No</th>
                             <th>Date Added</th>
                             <th>Description</th>
@@ -46,6 +46,7 @@
                         <tr>
                             <td class="align-middle"><%=rs.getInt("categories.id") %></td>
                             <td class="align-middle"><%=rs.getString("categories.category") %></td>
+                            <td class="align-middle"><img class="img-fluid w-5" src="img/<%=rs.getString("cat_image") %>" alt=""></td>
                             <td class="align-middle"><%=rs.getInt("COUNT(categories.id)") %></td>
                             <td class="align-middle"><%=rs.getString("categories.date_created") %></td>
                             <td class="align-middle"><%=rs.getString("categories.description") %></td>
@@ -61,7 +62,6 @@
                     %>
                 </table>
             </div>
-        </div>
     </div>
 <!-- Product_category --> 
 
@@ -78,6 +78,10 @@
                 <div class="col-md-6 form-group">
                     <label>Product Category</label>
                     <input class="form-control text-center" type="text" placeholder="Men's Shirts" name="category" id="category" required>
+                </div>
+                <div class="col-md-6 form-group ">
+                    <label>Attach Category Image</label> 
+                    <input type="file" name="category_image" id="category_image" class="form-control text-center" required/>
                 </div>
                 <div class="col-md-6 form-group ">
                     <p><label for="martreview">Description:</label></p>

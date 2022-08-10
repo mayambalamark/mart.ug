@@ -217,22 +217,63 @@
     </div>
     <!-- Carousel End -->
 
-
-    <!-- Featured Start -->
+    <% 
+                    try{ 
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
+                        Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                        st = conn.createStatement();
+                        String sql = "SELECT COUNT(*) FROM users";
+                        ResultSet rs = st.executeQuery(sql);
+                        while(rs.next()){
+                        
+                            int count_row = rs.getInt(1);
+                    %>
+                   <!-- Statistics -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5 pb-3">
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                    <h1 class="fa fa-check text-primary m-0 mr-3"><%out.println(count_row);%></h1>
+                    <h5 class="font-weight-semi-bold m-0">USERS</h5>
                 </div>
             </div>
+<%
+                    }
+                    }catch(ClassNotFoundException | SQLException c){
+                    out.println(c.getMessage());
+                    }  
+%>
+
+
+ <% 
+                    try{ 
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mart","root","");
+                        Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                        st = conn.createStatement();
+                        String sql = "SELECT SUM(quantity) FROM products";
+                        ResultSet rs = st.executeQuery(sql);
+                        while(rs.next()){
+                        
+                            int count_row = rs.getInt(1);
+                    %>
+              
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
                     <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
                     <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
                 </div>
             </div>
+<%
+                    }
+                    }catch(ClassNotFoundException | SQLException c){
+                    out.println(c.getMessage());
+                    }  
+%>
+    
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
                     <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
@@ -247,7 +288,7 @@
             </div>
         </div>
     </div>
-    <!-- Featured End -->
+    <!-- Statistics -->
 
 
     <!-- Categories Start -->
@@ -271,7 +312,7 @@
                 <a class="text-decoration-none" href="">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                            <img class="img-fluid" src="img/<%=rs.getString("cat_image") %>" alt="">
                         </div>
                         <div class="flex-fill pl-3">
                             <h6><%=rs.getString("categories.category") %></h6>
@@ -311,7 +352,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/<%=rs.getString("image") %>" alt="">
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>

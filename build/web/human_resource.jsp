@@ -63,7 +63,14 @@
                         </tr>
                     </tbody>
                     <%
-                        }
+                    }
+                    String s = "SELECT COUNT(*) FROM users";
+                    ResultSet r = st.executeQuery(s);
+                    while(r.next()){                   
+                        int count_row = r.getInt(1);
+                        out.println(count_row);
+                    }
+                       
        
                     }catch(ClassNotFoundException | SQLException c){
                     out.println(c.getMessage());

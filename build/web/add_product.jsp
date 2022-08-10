@@ -47,7 +47,7 @@
                     <tbody class="align-middle">
                         <tr>
                             <td class="align-middle"><%=rs.getInt("id") %></td>
-                            <td class="align-middle"><%=rs.getString("image") %></td>
+                            <td class="align-middle"><img class="img-fluid w-5" src="img/<%=rs.getString("image") %>" alt=""></td>
                             <td class="align-middle"><%=rs.getString("products") %></td>
                             <td class="align-middle"><%=rs.getString("quantity") %></td>
                             <td class="align-middle"><%=rs.getString("quantity_left") %></td>
